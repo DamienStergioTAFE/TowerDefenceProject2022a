@@ -17,3 +17,4 @@ MonoBehaviour:
   fireRate: 4
   price: 5
   upgrade: {fileID: 0}
+  towerColour: {r: 0.6981132, g: 0.28089526, b: 0.08891065, a: 1}

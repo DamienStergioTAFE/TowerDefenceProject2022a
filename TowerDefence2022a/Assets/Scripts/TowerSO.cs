@@ -10,5 +10,5 @@ public class TowerSO : ScriptableObject
     public float fireRate = 1;
     public float price = 1;
     public TowerSO upgrade;
-    
+    public Color towerColour = Color.white;
 }
