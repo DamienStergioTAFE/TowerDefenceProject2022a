@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Mortar 1
   m_EditorClassIdentifier: 
   range: 10
-  damage: 10
-  fireRate: 5
+  damage: 3
+  fireRate: 2
   price: 3
   upgrade: {fileID: 11400000, guid: 24b499fb5c827034a82761fe635202e3, type: 2}
   towerColour: {r: 0.8301887, g: 0.121395506, b: 0.121395506, a: 1}
+  prefab: {fileID: 2087651769885719923, guid: 03f88c1836c768145b30360998ccd6bd, type: 3}

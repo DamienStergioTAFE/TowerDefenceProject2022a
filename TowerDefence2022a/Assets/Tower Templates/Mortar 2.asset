@@ -18,3 +18,4 @@ MonoBehaviour:
   price: 5
   upgrade: {fileID: 0}
   towerColour: {r: 0.6981132, g: 0.28089526, b: 0.08891065, a: 1}
+  prefab: {fileID: 3524484255344536604, guid: 8bcf0b575ed1a0146a69cb1349cdc52d, type: 3}
