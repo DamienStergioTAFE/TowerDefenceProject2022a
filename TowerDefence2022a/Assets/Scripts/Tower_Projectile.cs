@@ -69,7 +69,7 @@ public class Tower_Projectile : Tower
             if (tempCreep != null)
             {
                 //nearbyCreeps.Add(tempCreep);
-                tempCreep.TakeDamage(damage);
+                tempCreep.TakeDamage(damage, this);
             }
         }
     }

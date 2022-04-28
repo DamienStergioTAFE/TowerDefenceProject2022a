@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Speedster
   m_EditorClassIdentifier: 
   maxHealth: 5
-  speed: 5
+  speed: 15
   armour: -1
   money: 4

@@ -6,15 +6,24 @@ public class Node : MonoBehaviour
 {
     public Manager manager;         //Game Manager
     public Material mat;            //Colour material
+    public Color defaultColor;
     public GameObject spawnedTower; //The tower object that we spawned on this node
+    public GameObject ghostTower;   //The ghost that appears when hovering over the node.
+    MeshFilter meshFilter;
 
     void Start()
     {
         //Get the material on the object to change its colour.
         mat = GetComponent<Renderer>().material;
 
+        defaultColor = mat.color;
+
         //Find the manager to know what tower to spawn
         manager = FindObjectOfType<Manager>();
+
+        meshFilter = ghostTower.GetComponent<MeshFilter>();
+
+        meshFilter.mesh = null;
     }
 
     void Update()
@@ -24,6 +33,16 @@ public class Node : MonoBehaviour
 
     private void OnMouseOver()
     {
+        /// If it doesn't have a tower already...
+        /// Instantiate a gameobject on top of the node.
+        /// The object will need to have a mesh renderer
+        /// that mesh will match the currently selected tower
+        /// the mesh will have a material that is transparent.
+
+        meshFilter.sharedMesh = manager.towerPrefab.GetComponent<MeshFilter>().sharedMesh;
+
+
+
         mat.color = Color.red;
         if (Input.GetMouseButtonDown(0))
         {
@@ -73,7 +92,8 @@ public class Node : MonoBehaviour
 
     private void OnMouseExit()
     {
-        mat.color = Color.white;
+        mat.color = defaultColor;
+        meshFilter.mesh = null;
     }
 
 

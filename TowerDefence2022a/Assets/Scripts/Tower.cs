@@ -53,7 +53,7 @@ public class Tower : MonoBehaviour
             if(Vector3.Distance(transform.position, currentTarget.transform.position) < range)
             {
                 //Deal damage to the currently selected target
-                currentTarget.TakeDamage(damage);
+                currentTarget.TakeDamage(damage, this);
 
                 //Look towards the target
                 transform.LookAt(currentTarget.transform);
