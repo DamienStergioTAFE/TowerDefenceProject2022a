@@ -9,8 +9,9 @@ public class Manager : MonoBehaviour
 {
     [Header("User Interface")]
     public Button nextWavebutton;
-    [SerializeField] private TextMeshProUGUI livesText;
-    [SerializeField] private TextMeshProUGUI moneyText;
+    public TextMeshProUGUI livesText;
+    public TextMeshProUGUI moneyText;
+    
     public GameObject combatUI;
     public GameObject winScreen;
     public GameObject loseScreen;
@@ -168,19 +169,19 @@ public class Manager : MonoBehaviour
     public void ChangeLives(int value)
     {
         lives = lives + value;
+        livesText.text = "Lives: " + lives;
+
 
         //If lives goes below 0 then you lose
-
         if (lives <= 0)
         {
-            loseScreen.SetActive(true);
-            combatUI.SetActive(false);
+            loseScreen.SetActive(true);  //Turn on lose screen
+            combatUI.SetActive(false);   //turn off normal UI
         }
 
-        livesText.text = "Lives: " + lives;
     }
 
-    public void LoadMainMenu()
+    public void LoadMainMenu()    
     {
         SceneManager.LoadScene("MainMenu");
     }
