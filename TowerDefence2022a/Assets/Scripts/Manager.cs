@@ -9,6 +9,7 @@ public class Manager : MonoBehaviour
 {
     [Header("User Interface")]
     public Button nextWavebutton;
+
     public TextMeshProUGUI livesText;
     public TextMeshProUGUI moneyText;
     
@@ -100,7 +101,6 @@ public class Manager : MonoBehaviour
             if (creepInWave == 0)           //And we have none left to spawn this wave
             {
                 nextWavebutton.interactable = true;
-
 
                 if (waveInAll >= allWaves.Count)    //And it was the last wave on this map
                 {

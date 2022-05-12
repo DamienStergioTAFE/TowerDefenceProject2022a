@@ -75,7 +75,7 @@ public class Creep : MonoBehaviour
             GameObject particle = Instantiate(deathParticle, transform.position, Quaternion.identity);
             Destroy(particle, 10);
 
-            particle.transform.LookAt(damageSource.transform);
+            particle.transform.LookAt(damageSource.transform, Vector3.back);
 
 
             //Die

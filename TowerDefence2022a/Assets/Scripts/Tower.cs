@@ -11,6 +11,8 @@ public class Tower : MonoBehaviour
     public float range;
     public float damage;
     public float fireRate;
+    public TowerSO upgradeData;     //Information on the upgrade
+
     public TargetType targetType = TargetType.close;    //How it decides what unit to attack
 
     public Creep currentTarget;     //What we are shooting at now
@@ -78,4 +80,34 @@ public class Tower : MonoBehaviour
     {
 
     }
+
+
+    /// <summary>
+    /// This function is called when you click on the collider of this object
+    /// </summary>
+    private void OnMouseDown()
+    {
+        /// Check if we are in upgrades mode first
+
+        if (upgradeData == null)
+        {
+            return;
+        }
+
+        Manager manager = FindObjectOfType<Manager>();
+
+        if(manager.BuySomething(upgradeData.price) == false)
+        {
+            return;     //If we can't afford it, then skip to the end.
+        }
+
+        range = upgradeData.range;
+        damage = upgradeData.damage;
+        fireRate = upgradeData.fireRate;
+        GetComponent<Renderer>().material.color = upgradeData.towerColour;
+
+
+        upgradeData = upgradeData.upgrade;      //This one needs to be done last
+    }
+
 }

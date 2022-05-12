@@ -33,19 +33,14 @@ public class Node : MonoBehaviour
 
     private void OnMouseOver()
     {
-        /// If it doesn't have a tower already...
-        /// Instantiate a gameobject on top of the node.
-        /// The object will need to have a mesh renderer
-        /// that mesh will match the currently selected tower
-        /// the mesh will have a material that is transparent.
-
         meshFilter.sharedMesh = manager.towerPrefab.GetComponent<MeshFilter>().sharedMesh;
-
-
 
         mat.color = Color.red;
         if (Input.GetMouseButtonDown(0))
         {
+            Debug.Log("Clicked the node");
+
+
             if(spawnedTower != null)        //This means we have a tower already
             {
                 return;                     //...skip to the end
@@ -86,6 +81,7 @@ public class Node : MonoBehaviour
             tower.damage = manager.towerData.damage;
             tower.range = manager.towerData.range;
             tower.fireRate = manager.towerData.fireRate;
+            tower.upgradeData = manager.towerData.upgrade;
         }
 
     }
