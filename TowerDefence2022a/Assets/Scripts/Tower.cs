@@ -17,10 +17,12 @@ public class Tower : MonoBehaviour
 
     public Creep currentTarget;     //What we are shooting at now
 
+    AudioSource source;
 
     // Start is called before the first frame update
     void Start()
     {
+        source = GetComponent<AudioSource>();
         FindTarget();
         InvokeRepeating("DamageTarget", 0, fireRate);
     }
@@ -59,6 +61,9 @@ public class Tower : MonoBehaviour
 
                 //Look towards the target
                 transform.LookAt(currentTarget.transform);
+
+                //Play sound effect
+                source.PlayOneShot(source.clip);
             }
             else
             {

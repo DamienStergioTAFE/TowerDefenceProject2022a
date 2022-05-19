@@ -17,6 +17,9 @@ public class Manager : MonoBehaviour
     public GameObject winScreen;
     public GameObject loseScreen;
 
+    public TextMeshProUGUI highScoreText;
+    public TMP_InputField highScoreInput;
+
 
     [Header("Player data")]
     public int lives;
@@ -62,8 +65,78 @@ public class Manager : MonoBehaviour
         {
             SelectTower(1);
         }
+
+
+        //if (Input.GetKeyDown(KeyCode.O))
+        //{
+        //    SaveSystem.SavePlayer(this);
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    HighScoreData data = SaveSystem.LoadPlayer();
+        //    Debug.Log("Level: " + data.levelName);
+        //}
     }
 
+    public void SaveNewScore()
+    {
+        string name = "Player: " + highScoreInput.text;
+        float score = money;
+        HighScoreData data = SaveSystem.LoadPlayer();
+
+        if (data.scores.Count == 0)             //if there are no scores to begin with
+        {
+            data.scores.Add(score);             //Add just one with no comparisons
+            data.names.Add(name);
+        }
+        else
+        {
+            //Adds the score to the end if it's lower than the lowest
+            if (score <= data.scores[data.scores.Count - 1])
+            {
+                data.scores.Add(score);
+                data.names.Add(name);
+            }
+
+            for (int i = 0; i < data.scores.Count; i++) //iterate through all the old scores
+            {
+                if (data.scores[i] < score)      //Check if ours is higher or not
+                {
+                    data.scores.Insert(i, score);
+                    data.names.Insert(i, name);
+                    break;                          //Don't loop any further
+                    //Then we add in our score here.
+                }
+            }
+        }
+
+        SaveSystem.SavePlayer(data);
+        LoadHighScores();
+    }
+
+    void LoadHighScores()
+    {
+        HighScoreData data = SaveSystem.LoadPlayer();
+
+        string displayString = data.levelName + "\n";
+
+        for (int i = 0; i < data.scores.Count; i++)
+        {
+            displayString += data.names[i] + ": ";
+            displayString += data.scores[i] + "\n";         //new line
+        }
+
+        highScoreText.text = displayString;                 //Display the info
+    }
+
+    public void ClearHighScores()
+    {
+        //Make a new "clean" file with no scores
+        HighScoreData clearData = new HighScoreData(SceneManager.GetActiveScene().name);
+        SaveSystem.SavePlayer(clearData);
+        LoadHighScores();                           //Display new clear screen.
+    }
 
     public bool BuySomething(float price)
     {
@@ -105,8 +178,8 @@ public class Manager : MonoBehaviour
                 if (waveInAll >= allWaves.Count)    //And it was the last wave on this map
                 {
                     //FINALLY WE HAVE KILLED THEM ALL
-                    Debug.Log("You have beaten all the waves. Developer please put in a win screen here");
                     winScreen.SetActive(true);
+                    LoadHighScores();
                     combatUI.SetActive(false);
                 }
             }
@@ -142,8 +215,11 @@ public class Manager : MonoBehaviour
         creep.armour = currentWave.creeps[creepInWave].armour;
         creep.money = currentWave.creeps[creepInWave].money;
 
+        GetComponent<MeshFilter>().mesh = currentWave.creeps[creepInWave].creepMesh;
+        GetComponent<MeshRenderer>().material = currentWave.creeps[creepInWave].creepMaterial;
+
         //if we have not reached the last one in the list...
-        if(creepInWave < currentWave.creeps.Count - 1)  
+        if (creepInWave < currentWave.creeps.Count - 1)  
         {
             //Add one to the counter
             creepInWave = creepInWave + 1;

@@ -38,8 +38,6 @@ public class Node : MonoBehaviour
         mat.color = Color.red;
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Clicked the node");
-
 
             if(spawnedTower != null)        //This means we have a tower already
             {

@@ -77,6 +77,8 @@ public class Creep : MonoBehaviour
 
             particle.transform.LookAt(damageSource.transform, Vector3.back);
 
+            AudioSource source = Camera.main.GetComponent<AudioSource>();
+            source.PlayOneShot(source.clip);
 
             //Die
             Destroy(gameObject);

@@ -16,4 +16,8 @@ public class CreepSO : ScriptableObject
     public float speed;
     public float armour;
     public float money;
+
+    public Mesh creepMesh;
+    public Material creepMaterial;
+
 }
