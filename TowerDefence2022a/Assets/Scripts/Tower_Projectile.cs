@@ -57,7 +57,7 @@ public class Tower_Projectile : Tower
 
 
         //Find all colliders within range and store it in the array
-        nearbyColliders = Physics.OverlapSphere(collidePoint, range);
+        nearbyColliders = Physics.OverlapSphere(collidePoint, explosionRadius);
 
 
         //Filter through the array and make a list of creeps.

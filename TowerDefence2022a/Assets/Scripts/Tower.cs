@@ -18,6 +18,8 @@ public class Tower : MonoBehaviour
     public Creep currentTarget;     //What we are shooting at now
 
     AudioSource source;
+    public bool constantSound = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,9 @@ public class Tower : MonoBehaviour
 
     protected void FindTarget()
     {
+        if(constantSound)
+            source.volume = 0;
+
         // Search for creep within range
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, range);
@@ -62,13 +67,20 @@ public class Tower : MonoBehaviour
                 //Look towards the target
                 transform.LookAt(currentTarget.transform);
 
-                //Play sound effect
-                source.PlayOneShot(source.clip);
+                if(constantSound == false)
+                {
+                    source.PlayOneShot(source.clip);
+                }
+                else
+                {
+                    source.volume = 1;
+                }
             }
             else
             {
                 //Current target not in range? Then look for a new one instead.
                 FindTarget();
+
             }
         }
         else
@@ -92,8 +104,7 @@ public class Tower : MonoBehaviour
     /// </summary>
     private void OnMouseDown()
     {
-        /// Check if we are in upgrades mode first
-
+        /// Check if we even have an upgrade to set to
         if (upgradeData == null)
         {
             return;
@@ -109,10 +120,8 @@ public class Tower : MonoBehaviour
         range = upgradeData.range;
         damage = upgradeData.damage;
         fireRate = upgradeData.fireRate;
-        GetComponent<Renderer>().material.color = upgradeData.towerColour;
 
-
-        upgradeData = upgradeData.upgrade;      //This one needs to be done last
+        upgradeData = upgradeData.upgrade;      //This one needs to be done last  
     }
 
 }

@@ -65,25 +65,13 @@ public class Manager : MonoBehaviour
         {
             SelectTower(1);
         }
-
-
-        //if (Input.GetKeyDown(KeyCode.O))
-        //{
-        //    SaveSystem.SavePlayer(this);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.P))
-        //{
-        //    HighScoreData data = SaveSystem.LoadPlayer();
-        //    Debug.Log("Level: " + data.levelName);
-        //}
     }
 
     public void SaveNewScore()
     {
-        string name = "Player: " + highScoreInput.text;
+        string name = "Player: " + highScoreInput.text;     //Save the player name
         float score = money;
-        HighScoreData data = SaveSystem.LoadPlayer();
+        HighScoreData data = SaveSystem.LoadPlayer();       //get current save info
 
         if (data.scores.Count == 0)             //if there are no scores to begin with
         {
@@ -117,11 +105,11 @@ public class Manager : MonoBehaviour
 
     void LoadHighScores()
     {
-        HighScoreData data = SaveSystem.LoadPlayer();
+        HighScoreData data = SaveSystem.LoadPlayer();       //Load save datae
 
-        string displayString = data.levelName + "\n";
+        string displayString = data.levelName + "\n";       //Build the string to display
 
-        for (int i = 0; i < data.scores.Count; i++)
+        for (int i = 0; i < data.scores.Count; i++)         
         {
             displayString += data.names[i] + ": ";
             displayString += data.scores[i] + "\n";         //new line
@@ -215,8 +203,8 @@ public class Manager : MonoBehaviour
         creep.armour = currentWave.creeps[creepInWave].armour;
         creep.money = currentWave.creeps[creepInWave].money;
 
-        GetComponent<MeshFilter>().mesh = currentWave.creeps[creepInWave].creepMesh;
-        GetComponent<MeshRenderer>().material = currentWave.creeps[creepInWave].creepMaterial;
+        creep.GetComponent<MeshFilter>().mesh = currentWave.creeps[creepInWave].creepMesh;
+        creep.GetComponent<MeshRenderer>().material = currentWave.creeps[creepInWave].creepMaterial;
 
         //if we have not reached the last one in the list...
         if (creepInWave < currentWave.creeps.Count - 1)  

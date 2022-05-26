@@ -52,7 +52,7 @@ public static class SaveSystem
         //Determine the location of the file
         string path = Application.persistentDataPath + "/SaveData" + levelName + ".txt";
 
-        if (File.Exists(path))      //Load scores
+        if (File.Exists(path))      //Check if we have a scores file to load
         {
             // Formatter instance
             BinaryFormatter formatter = new BinaryFormatter();
@@ -60,6 +60,7 @@ public static class SaveSystem
             //Open a file stream to put the data into the file.
             FileStream stream = new FileStream(path, FileMode.Open);
 
+            //De-incrypt data
             HighScoreData data = formatter.Deserialize(stream) as HighScoreData;
             stream.Close();
 

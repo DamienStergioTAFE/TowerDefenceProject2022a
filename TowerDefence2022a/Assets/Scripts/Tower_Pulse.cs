@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tower_Pulse : Tower
 {
-
+    public GameObject effectprefab;
     protected override void DamageTarget()
     {
         Collider[] nearbyColliders;         //Store a temp list of all nearby colliders
@@ -14,6 +14,7 @@ public class Tower_Pulse : Tower
         //Find all colliders within range and store it in the array
         nearbyColliders = Physics.OverlapSphere(transform.position, range);
 
+        bool nearbyEnemy = false;
 
         //Filter through the array and make a list of creeps.
         for (int i = 0; i < nearbyColliders.Length; i++)
@@ -25,8 +26,23 @@ public class Tower_Pulse : Tower
             {
                 //nearbyCreeps.Add(tempCreep);
                 tempCreep.TakeDamage(damage, this);
+                nearbyEnemy = true;
             }
         }
+
+        if (nearbyEnemy)
+        {
+            //GameObject newEffect = Instantiate(effectprefab, transform.position, transform.rotation);
+
+
+            //LeanTween.scale(newEffect, new Vector3(range, 1, range), 0.2f);
+
+            //LeanTween.color(newEffect, Color.clear, 0.4f);
+
+            //Destroy(newEffect, 1);
+        }
+
+
     }
 
 }
